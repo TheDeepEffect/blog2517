@@ -2,10 +2,13 @@ import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 
-const Header = ({ signOut }) => {
-	const name = "user";
+import { useFirebaseAuth } from "./../auth/auth-spa";
+
+const Header = ({ user }) => {
+	const { signOutHandle } = useFirebaseAuth();
+	const { name, username } = user || "user";
 	return (
-		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+		<Navbar sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
 			<Navbar.Brand>Blog2517</Navbar.Brand>
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">
@@ -19,13 +22,17 @@ const Header = ({ signOut }) => {
 					</Nav.Link>
 				</Nav>
 				<Nav>
-					<NavDropdown title={name} drop="left" id="collasible-nav-dropdown">
-						<NavDropdown.Item>userrr</NavDropdown.Item>
+					<NavDropdown
+						title={username}
+						drop="left"
+						id="collasible-nav-dropdown"
+					>
+						<NavDropdown.Item>{name}</NavDropdown.Item>
 						<NavDropdown.Item>Another action</NavDropdown.Item>
 						<NavDropdown.Item>Something</NavDropdown.Item>
 						<NavDropdown.Divider />
-						<NavDropdown.Item onClick={() => signOut()}>
-							Sign Out 😴
+						<NavDropdown.Item onClick={() => signOutHandle()}>
+							Sign Out <span role="img">😴</span>
 						</NavDropdown.Item>
 					</NavDropdown>
 				</Nav>

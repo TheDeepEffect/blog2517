@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { useHistory, Redirect } from "react-router-dom";
 import { GET_USER } from "../queries/queries";
-
+import { useFirebaseAuth } from "./../auth/auth-spa";
 const ADD_USER = gql`
 	mutation insertUser($uid: String!, $name: String!, $username: String!) {
 		insert_users(objects: { id: $uid, name: $name, username: $username }) {
@@ -14,21 +13,30 @@ const ADD_USER = gql`
 `;
 
 const AddUser = props => {
-	const history = useHistory();
+	const { currentUser } = useFirebaseAuth();
+	const { uid, displayName: name } = currentUser;
 	const [show, setShow] = useState(true);
 	const [username, setUsername] = useState("");
-	const { name, uid } = props;
+
 	const [hasError, setError] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
-	console.log(uid, "uid");
+	//This was uncommented nut not in use much (i think.)
+	// useEffect(() => {
+	// 	console.log("mount");
+	// 	return () => {
+	// 		console.log("dismount");
+	// 	};
+	// }, [show]);
+	// console.log(uid, "uid");
 
 	const onSubmitHandle = e => {
 		e.preventDefault();
 		adduser({ variables: { uid, name, username } });
 	};
-	const onErrorMutation = () => {
+	const onErrorMutation = error => {
 		setError(true);
+		console.log(error);
 	};
 	const onHandleChange = e => {
 		setError(false);
@@ -38,29 +46,29 @@ const AddUser = props => {
 		setUsername(value.toLowerCase());
 	};
 	const onCompleteMutation = () => {
-		return <Redirect to="/" />;
+		setShow(false);
 	};
 
-	const updateCache = (cache, { data }) => {
-		const existingUser = cache.readQuery({
-			query: GET_USER
-		});
-		const addeduser = data.insert_users.returning[0];
-		cache.writeQuery({
-			query: GET_USER,
-			data: { users: [addeduser, ...existingUser] }
-		});
-	};
+	// const updateCache = (cache, { data }) => {
+	// 	setIsLoading(true);
+	// 	const existingUser = cache.readQuery({
+	// 		query: { GET_USER, variables: { uid } }
+	// 	});
+	// 	const addeduser = data.insert_users.returning[0];
+	// 	cache.writeQuery({
+	// 		query: { GET_USER, variables: { uid } },
+	// 		data: { users: [addeduser, ...existingUser] }
+	// 	});
+	// 	console.log("updating cahce", cache, data);
+	// };
 
-	const [adduser, { data, loading, error }] = useMutation(ADD_USER, {
+	const [adduser] = useMutation(ADD_USER, {
 		onCompleted: onCompleteMutation,
 		onError: onErrorMutation,
-		update: updateCache
+		// update: updateCache,
+		refetchQueries: [{ query: GET_USER, variables: { uid } }]
 	});
 
-	if (error) {
-		console.log(error, "error");
-	}
 	return (
 		<Modal
 			show={show}

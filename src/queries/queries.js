@@ -9,3 +9,22 @@ export const GET_USER = gql`
 		}
 	}
 `;
+
+export const POSTS = gql`
+	query getPosts {
+		posts {
+			id
+			published_at
+			title
+			content
+			url
+			user {
+				username
+			}
+			comments {
+				id
+				content
+			}
+		}
+	}
+`;

@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Posts from "./Posts";
 import AddUser from "./AddUser";
 
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { useFirebaseAuth } from "./../auth/auth-spa";
-import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_USER } from "./../queries/queries";
+import AddPost from "./AddPost";
 
 const Blog = props => {
-	const [showPopup, setShowPopup] = useState(true);
-	const { signOutHandle, currentUser } = useFirebaseAuth();
-	const { uid, displayName } = currentUser;
+	const { currentUser } = useFirebaseAuth();
+	const { uid } = currentUser;
 	// console.log(uid);
 	// const { loading, error, data } = useQuery(USER, { variables: { uid } });
 	const { loading, error, data } = useQuery(GET_USER, {
@@ -27,24 +26,15 @@ const Blog = props => {
 		console.error(error);
 		return <div>error!</div>;
 	}
-
 	return (
 		<BrowserRouter>
 			<div className="app">
-				<Header signOut={signOutHandle} username={data.users[0]} />
+				<Header user={data.users[0]} />
 				<Switch>
-					<Route
-						exact
-						path="/"
-						render={() =>
-							data.users[0] ? (
-								<Posts />
-							) : (
-								<AddUser uid={uid} name={displayName} />
-							)
-						}
-					/>
-					<Route exact path="/addPost"></Route>
+					<Route exact path="/" component={data.users[0] ? Posts : AddUser} />
+					<Route path="/addPost">
+						<AddPost user={data.users[0]} />
+					</Route>
 				</Switch>
 			</div>
 		</BrowserRouter>
