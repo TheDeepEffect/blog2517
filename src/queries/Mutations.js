@@ -6,6 +6,7 @@ export const ADD_POST = gql`
 		$content: String!
 		$published: Boolean!
 		$urlSlug: String!
+		$published_at: timestamptz
 	) {
 		insert_posts(
 			objects: {
@@ -13,9 +14,24 @@ export const ADD_POST = gql`
 				url: $urlSlug
 				content: $content
 				published: $published
+				published_at: $published_at
 			}
 		) {
 			affected_rows
+			returning {
+				id
+				published_at
+				title
+				content
+				url
+				user {
+					username
+				}
+				comments {
+					id
+					content
+				}
+			}
 		}
 	}
 `;

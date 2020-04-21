@@ -31,9 +31,14 @@ const Blog = props => {
 			<div className="app">
 				<Header user={data.users[0]} />
 				<Switch>
-					<Route exact path="/" component={data.users[0] ? Posts : AddUser} />
+					<Route exact path="/">
+						{data.users[0] ? <Posts isMine={false} uid={uid} /> : <AddUser />}
+					</Route>
 					<Route path="/addPost">
 						<AddPost user={data.users[0]} />
+					</Route>
+					<Route path="/myPost">
+						<Posts isMine={true} uid={uid} />
 					</Route>
 				</Switch>
 			</div>

@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, ListGroup, Form } from "react-bootstrap";
+import { Card, ListGroup, Form, Button } from "react-bootstrap";
 
-const Post = ({ post }) => {
+const Post = ({ post, isMine }) => {
 	const {
 		id,
 		title,
@@ -24,20 +24,32 @@ const Post = ({ post }) => {
 				<Card.Header as="h5">{title}</Card.Header>
 				<Card.Body>
 					<Card.Text>{content}</Card.Text>
+
+					{isMine && <Button>Update Post</Button>}
 				</Card.Body>
+
 				<ListGroup>
-					<ListGroup.Item>
-						<Form.Control
-							type="text"
-							placeholder="enter comment"
-							onSubmit={onCommentSubmit}
-						/>
-					</ListGroup.Item>
+					{!isMine && (
+						<ListGroup.Item>
+							<Form.Control
+								type="text"
+								placeholder="enter comment"
+								onSubmit={onCommentSubmit}
+							/>
+						</ListGroup.Item>
+					)}
 					{comments.map(({ id, content }) => (
-						<ListGroup.Item variant="dark">{content}</ListGroup.Item>
+						<ListGroup.Item key={id} variant="dark">
+							{content}
+						</ListGroup.Item>
 					))}
 				</ListGroup>
-				<Card.Footer className="mb-2">{`published at: ${published_at} by ${username}`}</Card.Footer>
+
+				<Card.Footer className="mb-2">{`published at: ${
+					published_at
+						? new Date(published_at).toLocaleString()
+						: "Not published"
+				} | by ${username}`}</Card.Footer>
 			</Card>
 		</div>
 	);

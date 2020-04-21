@@ -28,7 +28,9 @@ const Header = ({ user }) => {
 						id="collasible-nav-dropdown"
 					>
 						<NavDropdown.Item>{name}</NavDropdown.Item>
-						<NavDropdown.Item>Another action</NavDropdown.Item>
+						<NavDropdown.Item>
+							<Link to="/myPost">Myposts</Link> action
+						</NavDropdown.Item>
 						<NavDropdown.Item>Something</NavDropdown.Item>
 						<NavDropdown.Divider />
 						<NavDropdown.Item onClick={() => signOutHandle()}>

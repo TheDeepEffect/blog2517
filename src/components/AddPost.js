@@ -3,7 +3,7 @@ import { Form, Row, Col, Card, Button, InputGroup } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_POST } from "./../queries/Mutations";
 import { POSTS } from "./../queries/queries";
-import { useFirebaseAuth } from "./../auth/auth-spa";
+// import { useFirebaseAuth } from "./../auth/auth-spa";
 
 const AddPost = ({ user }) => {
 	const [validated, setValidated] = useState(false);
@@ -11,10 +11,19 @@ const AddPost = ({ user }) => {
 	const [content, setContent] = useState("");
 	const [publish, setPublish] = useState(false);
 	const [urlSlug, setUrlSlug] = useState("");
-	const [published_at, setPublished_at] = useState(null);
-	const { username, id: uid } = user || "";
+	const { username } = user || "";
 	const [done, setDone] = useState(false);
 
+	const updateCache = (cache, { data }) => {
+		const existingPosts = cache.readQuery({
+			query: POSTS
+		});
+		const newPosts = data.insert_posts.returning[0];
+		cache.writeQuery({
+			query: POSTS,
+			data: { posts: [newPosts, ...existingPosts.posts] }
+		});
+	};
 	const mutationErrorHandle = error => {
 		console.log(error);
 	};
@@ -30,19 +39,22 @@ const AddPost = ({ user }) => {
 	const [addPost, { loading }] = useMutation(ADD_POST, {
 		onError: mutationErrorHandle,
 		onCompleted: mutatoinCompletedHandle,
-		refetchQueries: [{ query: POSTS }]
+		onUpdate: updateCache
 	});
 	const handleSubmit = e => {
-		const form = e.currentTarget;
-		console.log(form);
+		// const form = e.currentTarget;
+		// console.log(form);
 		e.preventDefault();
+		console.log(publish);
+
 		// e.stopPropagation();
 		addPost({
 			variables: {
 				title,
 				content,
 				published: publish,
-				urlSlug: `${username}-${urlSlug}`
+				urlSlug: `${username}-${urlSlug}`,
+				published_at: publish ? new Date().toISOString() : null
 			}
 		});
 	};
@@ -62,9 +74,6 @@ const AddPost = ({ user }) => {
 				break;
 			case "publish":
 				setPublish(!publish);
-				if (publish) {
-					setPublished_at(new Date());
-				}
 				break;
 
 			default:

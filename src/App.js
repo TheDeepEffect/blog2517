@@ -22,7 +22,12 @@ const createApolloClient = idToken => {
 	const wsLink = new WebSocketLink({
 		uri: "ws://blog2517.herokuapp.com/v1/graphql",
 		options: {
-			reconnect: true
+			reconnect: true,
+			connectionParams: {
+				headers: {
+					Authorization: `Bearer ${idToken}`
+				}
+			}
 		}
 	});
 	const authLink = setContext((_, { headers }) => {
