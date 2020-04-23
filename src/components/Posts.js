@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Post from "./Posts/Post";
 import { Dropdown } from "react-bootstrap";
 
-import { useSubscription, useApolloClient } from "@apollo/react-hooks";
-import { POSTS } from "./../queries/queries";
+import { useSubscription, useQuery } from "@apollo/react-hooks";
+// import { POSTS } from "./../queries/queries";
 import { MY_POSTS } from "./../queries/queries";
 import { NEW_POST_SUB } from "./../queries/Subscriptions";
 
 const Posts = ({ isMine, latestPosts, uid }) => {
-	const client = useApolloClient();
-	const [state, setState] = useState({ error: false, posts: [] });
+	const [state, setState] = useState({ posts: [] });
 	const [order, setOrder] = useState("desc_nulls_last");
+	//TODO:: Add two buttons to load newer and older Todos from client.query
 
-	//TODO:: Add useEffect for filter....
-	const QUERY = isMine
-		? { query: MY_POSTS, variables: { uid, order } }
-		: { query: POSTS, variables: { order } };
+	useEffect(() => {
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+
+		if (latestPosts.length - state.posts.length !== 0) {
+			// console.log(latestPosts);
+			console.log(latestPosts.length - state.posts.length, "new posts");
+			setState({ posts: [...latestPosts] });
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [latestPosts.length]);
 
 	if (order.includes("desc")) {
 		state.posts.sort(
@@ -30,15 +36,6 @@ const Posts = ({ isMine, latestPosts, uid }) => {
 	// 	loadOlder();
 	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	// }, []);
-	useEffect(() => {
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-
-		if (latestPosts.length) {
-			console.log(latestPosts);
-			setState({ posts: [...latestPosts] });
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [latestPosts]);
 
 	return (
 		<div>
@@ -52,7 +49,7 @@ const Posts = ({ isMine, latestPosts, uid }) => {
 				</Dropdown.Menu>
 			</Dropdown>
 			{state.posts.map(post => (
-				<Post key={post.id} post={post} />
+				<Post key={post.id} isMine={isMine} post={post} />
 			))}
 		</div>
 	);
@@ -60,26 +57,56 @@ const Posts = ({ isMine, latestPosts, uid }) => {
 
 const PostsQuery = ({ isMine, uid }) => {
 	// const QUERY = isMine ? MY_POSTS : POSTS;
+
 	const { data, loading, error } = useSubscription(NEW_POST_SUB);
 
-	if (loading) {
-		return <div>Loading...</div>;
-	}
-	if (error) {
-		console.log(error);
-		return <div>Error!</div>;
-	}
-	// console.log(data, "data");
-	// console.log(da, err);
-	return (
-		<div>
-			<Posts
-				latestPosts={data.posts.length ? data.posts : null}
-				isMine={isMine}
-				uid={uid}
-			/>
-		</div>
+	const { data: myData, loading: myLoading, error: myError } = useQuery(
+		MY_POSTS,
+		{
+			variables: { uid }
+		}
 	);
+
+	if (isMine) {
+		if (myLoading) {
+			return <div>Loading...</div>;
+		}
+		if (myError) {
+			console.log(error);
+			return <div>Error!</div>;
+		}
+		// console.log(data, "data");
+		// console.log(da, err);
+
+		return (
+			<div>
+				<Posts
+					latestPosts={myData.posts.length ? myData.posts : null}
+					isMine={isMine}
+					uid={uid}
+				/>
+			</div>
+		);
+	} else {
+		if (loading) {
+			return <div>Loading...</div>;
+		}
+		// if (error) {
+		// 	console.log(error);
+		// 	return <div>Error!</div>;
+		// }
+		// console.log(data, "data");
+		// console.log(da, err);
+		return (
+			<div>
+				<Posts
+					latestPosts={data.posts.length ? data.posts : []}
+					isMine={isMine}
+					uid={uid}
+				/>
+			</div>
+		);
+	}
 };
 
 export default PostsQuery;

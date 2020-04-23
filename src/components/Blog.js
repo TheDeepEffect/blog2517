@@ -40,6 +40,9 @@ const Blog = props => {
 					<Route path="/myPost">
 						<Posts isMine={true} uid={uid} />
 					</Route>
+					<Route path="/editPost">
+						<AddPost user={data.users[0]} isEdit={true} />
+					</Route>
 				</Switch>
 			</div>
 		</BrowserRouter>

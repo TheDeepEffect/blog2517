@@ -64,12 +64,14 @@ export const FirebaseAuthProvider = ({ cildren }) => {
 	};
 	if (isLoading) {
 		console.log("inloading");
-		return <div>loadin....</div>;
+		return <div className="app">Loading..</div>;
 	}
 	if (!isAuthenticated) {
 		return (
 			<FirebaseAuthContext.Provider value={{ isLoading, googleSignIn }}>
-				<Login />
+				<div className="app">
+					<Login />
+				</div>
 			</FirebaseAuthContext.Provider>
 		);
 	} else {
@@ -77,7 +79,9 @@ export const FirebaseAuthProvider = ({ cildren }) => {
 			<FirebaseAuthContext.Provider
 				value={{ signOutHandle, isLoading, currentUser }}
 			>
-				<App idToken={idToken} />
+				<div className="app">
+					<App idToken={idToken} />
+				</div>
 			</FirebaseAuthContext.Provider>
 		);
 	}

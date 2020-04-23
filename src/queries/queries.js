@@ -24,10 +24,6 @@ export const POSTS = gql`
 			user {
 				username
 			}
-			comments {
-				id
-				content
-			}
 		}
 	}
 `;
@@ -40,15 +36,12 @@ export const MY_POSTS = gql`
 		) {
 			id
 			published_at
+			published
 			title
 			content
 			url
 			user {
 				username
-			}
-			comments {
-				id
-				content
 			}
 		}
 	}

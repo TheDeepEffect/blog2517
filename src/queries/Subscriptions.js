@@ -11,9 +11,20 @@ export const NEW_POST_SUB = gql`
 			user {
 				username
 			}
-			comments {
-				id
-				content
+		}
+	}
+`;
+export const COMMENT_SUB = gql`
+	subscription commentSub($pid: Int!) {
+		comments(
+			where: { post_id: { _eq: $pid } }
+			order_by: { created_at: desc_nulls_last }
+		) {
+			content
+			id
+			user {
+				username
+				last_seen
 			}
 		}
 	}
