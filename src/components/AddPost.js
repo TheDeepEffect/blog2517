@@ -30,7 +30,7 @@ const AddPost = ({ user, post, isEdit }) => {
 			setDone(true);
 		},
 		onError: error => {
-			console.log(error);
+			// console.log(error);
 		},
 		variables: {
 			title,
@@ -47,7 +47,7 @@ const AddPost = ({ user, post, isEdit }) => {
 			history.push("/myPost");
 		},
 		onError: error => {
-			console.log(error);
+			// console.log(error);
 		},
 		variables: {
 			id,
@@ -60,7 +60,7 @@ const AddPost = ({ user, post, isEdit }) => {
 	};
 	useEffect(() => {
 		if (!isEdit) {
-			console.log("createEffect");
+			// console.log("createEffect");
 			setTitle("");
 			setUrlSlug("");
 			setContent("");
@@ -78,7 +78,7 @@ const AddPost = ({ user, post, isEdit }) => {
 			setContent(post.content);
 			setPublish(post.published);
 			setButtonTitle("Update");
-			console.log(post.id);
+			// console.log(post.id);
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps

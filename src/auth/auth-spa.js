@@ -51,7 +51,7 @@ export const FirebaseAuthProvider = ({ cildren }) => {
 
 	const provide = new firebaseAuth.GoogleAuthProvider();
 	const googleSignIn = async () => {
-		console.log("insignin");
+		// console.log("insignin");
 		await firebaseAuth().signInWithPopup(provide);
 		setIsLoading(false);
 		setIsAuthenticated(true);
@@ -63,7 +63,7 @@ export const FirebaseAuthProvider = ({ cildren }) => {
 		setIsAuthenticated(false);
 	};
 	if (isLoading) {
-		console.log("inloading");
+		// console.log("inloading");
 		return <div className="app">Loading..</div>;
 	}
 	if (!isAuthenticated) {

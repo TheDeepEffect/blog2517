@@ -16,7 +16,7 @@ const Posts = ({ isMine, latestPosts, uid }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 
 		if (latestPosts.length - state.posts.length !== 0) {
-			console.log(latestPosts.length - state.posts.length, "new posts");
+			// console.log(latestPosts.length - state.posts.length, "new posts");
 			setState({ posts: [...latestPosts] });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

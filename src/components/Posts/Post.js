@@ -25,10 +25,10 @@ const Post = ({ post, isMine }) => {
 
 	const onCommentSubmit = e => {
 		e.preventDefault();
-		console.log(id);
-		console.log(comment);
+		// console.log(id);
+		// console.log(comment);
 		if (comment) {
-			console.log(comment);
+			// console.log(comment);
 			addComment({ variables: { pid: id, content: comment } });
 		}
 	};
