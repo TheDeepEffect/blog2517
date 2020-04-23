@@ -25,11 +25,7 @@ const Header = ({ user }) => {
 		} else {
 			clearInterval(onlineIndicator);
 		}
-		return () => {
-			// Clean up
-			console.log(isOnline, `${isOnline ? "online" : "offline"}cleanup`);
-			clearInterval(onlineIndicator);
-		};
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOnline]);
 

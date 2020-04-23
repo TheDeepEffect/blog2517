@@ -16,7 +16,6 @@ const Posts = ({ isMine, latestPosts, uid }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 
 		if (latestPosts.length - state.posts.length !== 0) {
-			// console.log(latestPosts);
 			console.log(latestPosts.length - state.posts.length, "new posts");
 			setState({ posts: [...latestPosts] });
 		}
@@ -32,10 +31,6 @@ const Posts = ({ isMine, latestPosts, uid }) => {
 			(a, b) => new Date(a.published_at) - new Date(b.published_at)
 		);
 	}
-	// useEffect(() => {
-	// 	loadOlder();
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, []);
 
 	return (
 		<div>
@@ -56,8 +51,6 @@ const Posts = ({ isMine, latestPosts, uid }) => {
 };
 
 const PostsQuery = ({ isMine, uid }) => {
-	// const QUERY = isMine ? MY_POSTS : POSTS;
-
 	const { data, loading, error } = useSubscription(NEW_POST_SUB);
 
 	const { data: myData, loading: myLoading, error: myError } = useQuery(
@@ -75,8 +68,6 @@ const PostsQuery = ({ isMine, uid }) => {
 			console.log(error);
 			return <div>Error!</div>;
 		}
-		// console.log(data, "data");
-		// console.log(da, err);
 
 		return (
 			<div>
@@ -91,12 +82,6 @@ const PostsQuery = ({ isMine, uid }) => {
 		if (loading) {
 			return <div>Loading...</div>;
 		}
-		// if (error) {
-		// 	console.log(error);
-		// 	return <div>Error!</div>;
-		// }
-		// console.log(data, "data");
-		// console.log(da, err);
 		return (
 			<div>
 				<Posts
