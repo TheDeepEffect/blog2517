@@ -38,9 +38,11 @@ const Sidebar = ({ user }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOnline]);
 	const updateLastSeen = () => {
-		updateLastSeenMutation({
-			variables: { now: new Date().toISOString() }
-		});
+		if (user) {
+			updateLastSeenMutation({
+				variables: { now: new Date().toISOString() }
+			});
+		}
 	};
 	return (
 		<Sider
