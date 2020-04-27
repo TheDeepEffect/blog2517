@@ -21,7 +21,7 @@ const createApolloClient = idToken => {
 		uri: "https://blog2517.herokuapp.com/v1/graphql"
 	});
 	const wsLink = new WebSocketLink({
-		uri: "ws://blog2517.herokuapp.com/v1/graphql",
+		uri: "wss://blog2517.herokuapp.com/v1/graphql",
 		options: {
 			reconnect: true,
 			connectionParams: {
