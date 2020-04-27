@@ -11,6 +11,7 @@ import Posts from "./Posts/Posts";
 import Adduser from "./Adduser";
 import AddPost from "./Posts/AddPost";
 import MyPosts from "./Posts/MyPosts";
+import PageNotFound from "./PageNotFound";
 
 const Blog = () => {
 	const { currentUser } = useFirebaseAuth();
@@ -72,6 +73,7 @@ const Blog = () => {
 						path="/myPosts"
 						render={() => <MyPosts uid={data.users_by_pk.id} />}
 					/>
+					<Route render={() => <PageNotFound />} />
 				</Switch>
 
 				{/* <Footer style={{ textAlign: "center" }}>
