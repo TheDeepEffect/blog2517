@@ -1,14 +1,100 @@
-.app {
-	height: 100vh;
-	background-color: lightslategrey;
-	text-align: center;
-	overflow-x: hidden;
+.customClass {
+	color: red;
 }
-a {
-	text-decoration: none;
+.ant-menu-item-selected {
+	background-color: violet;
+}
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+	background-color: #ec625f;
+}
+.ant-menu-dark .ant-menu-item-selected .anticon + span {
 	color: white;
 }
-a:hover {
-	text-decoration: none;
-	color: wheat;
+.ant-menu-dark .ant-menu-item-selected .anticon {
+	color: white;
+}
+.ant-layout-sider-trigger {
+	color: #ec625f;
+}
+.ant-layout {
+	background-color: #414141;
+}
+.logInButton {
+	color: #fff;
+	position: relative;
+	background-color: #ec625f;
+	border-color: transparent;
+	align-self: stretch;
+	top: 50vh;
+}
+.login {
+	background-color: #313131;
+	position: relative;
+	min-height: 100vh;
+	max-width: 50vw;
+	margin: 0 auto;
+	justify-content: center;
+	display: flex;
+	align-items: center;
+}
+.active-link {
+	color: white;
+}
+
+.ant-typography a {
+	color: black;
+}
+.loader {
+	position: relative;
+	left: 50vw;
+	margin: 0 auto;
+	color: white;
+}
+.ant-form-item-label > label {
+	color: white;
+}
+.post-divider.ant-divider-horizontal.ant-divider-with-text-center::before,
+.post-divider.ant-divider-horizontal.ant-divider-with-text-left::before,
+.post-divider.ant-divider-horizontal.ant-divider-with-text-right::before,
+.post-divider.ant-divider-horizontal.ant-divider-with-text-center::after,
+.post-divider.ant-divider-horizontal.ant-divider-with-text-left::after,
+.post-divider.ant-divider-horizontal.ant-divider-with-text-right::after {
+	border-top: 1px solid #313131;
+}
+ant-divider-inner-text {
+	color: #313131;
+}
+.username-comment {
+	float: right;
+	background-color: #313131;
+	border-radius: 0.5vw;
+	margin: auto;
+	font-size: 15;
+}
+.online:hover {
+	background-color: green;
+}
+.offline:hover {
+	background-color: red;
+}
+.load-posts {
+	background-color: #002140;
+	border-radius: 1.5vw 0;
+	padding: 1vh;
+	font-size: 2.5vh;
+	position: fixed;
+	color: #ec625f;
+	cursor: pointer;
+}
+.load-posts-older {
+	background-color: #002140;
+	color: #ec625f;
+	border-radius: 1.5vw 0;
+	font-size: 3vh;
+	position: relative;
+	bottom: 5vh;
+	cursor: pointer;
+}
+.user-status-switch {
+	/* color: black; */
 }

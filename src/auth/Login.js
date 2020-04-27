@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button } from "react-bootstrap";
+import { Button } from "antd";
 import { useFirebaseAuth } from "./auth-spa";
 
 const Login = () => {
@@ -9,8 +9,10 @@ const Login = () => {
 		return <div>Loading.....</div>;
 	}
 	return (
-		<div>
-			<Button onClick={() => googleSignIn()}>SigninWithGoogle</Button>
+		<div className="login">
+			<Button className="logInButton" onClick={() => googleSignIn()}>
+				SigninWithGoogle
+			</Button>
 		</div>
 	);
 };

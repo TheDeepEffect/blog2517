@@ -5,13 +5,13 @@ export const ADD_POST = gql`
 		$title: String!
 		$content: String!
 		$published: Boolean!
-		$urlSlug: String!
+		$url: String!
 		$published_at: timestamptz
 	) {
 		insert_posts(
 			objects: {
 				title: $title
-				url: $urlSlug
+				url: $url
 				content: $content
 				published: $published
 				published_at: $published_at
@@ -50,13 +50,13 @@ export const UPDATE_POST = gql`
 		$content: String
 		$published: Boolean!
 		$published_at: timestamptz
-		$urlSlug: String
+		$url: String
 	) {
 		update_posts(
 			where: { id: { _eq: $id } }
 			_set: {
 				title: $title
-				url: $urlSlug
+				url: $url
 				content: $content
 				published: $published
 				published_at: $published_at
@@ -69,6 +69,14 @@ export const UPDATE_POST = gql`
 export const UPDATE_LASTSEEN_MUTATION = gql`
 	mutation updateLastSeen($now: timestamptz!) {
 		update_users(where: {}, _set: { last_seen: $now }) {
+			affected_rows
+		}
+	}
+`;
+
+export const ADD_USER = gql`
+	mutation insertUser($uid: String!, $name: String!, $username: String!) {
+		insert_users(objects: { id: $uid, name: $name, username: $username }) {
 			affected_rows
 		}
 	}

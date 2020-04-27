@@ -1,7 +1,11 @@
 import React from "react";
+import logo from "./logo.svg";
 import "./App.css";
+import Blog from "./Blog/Blog";
 
 import { useFirebaseAuth } from "./auth/auth-spa";
+
+import { BrowserRouter } from "react-router-dom";
 
 import ApolloClient from "apollo-client";
 import { WebSocketLink } from "apollo-link-ws";
@@ -10,10 +14,7 @@ import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
 import { setContext } from "apollo-link-context";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloProvider, useQuery, useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-
-import Blog from "./components/Blog";
+import { ApolloProvider } from "@apollo/react-hooks";
 
 const createApolloClient = idToken => {
 	const httpLink = new HttpLink({
@@ -56,19 +57,16 @@ const createApolloClient = idToken => {
 
 function App({ idToken }) {
 	const { isLoading } = useFirebaseAuth();
-	// console.log(currentUser);
 	if (isLoading && !idToken) {
 		return <div>Loading...</div>;
 	}
-
 	const client = createApolloClient(idToken);
-	// console.log(JSON.stringify(currentUser, 3));
-	// console.log(uid);
-
 	return (
-		<ApolloProvider client={client}>
-			<Blog />
-		</ApolloProvider>
+		<BrowserRouter>
+			<ApolloProvider client={client}>
+				<Blog />
+			</ApolloProvider>
+		</BrowserRouter>
 	);
 }
 
