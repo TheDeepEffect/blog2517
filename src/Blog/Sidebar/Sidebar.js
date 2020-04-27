@@ -7,11 +7,7 @@ import { useFirebaseAuth } from "./../../auth/auth-spa";
 import { UPDATE_LASTSEEN_MUTATION } from "./../../queries/Mutations";
 import { useMutation } from "@apollo/react-hooks";
 
-import {
-	DesktopOutlined,
-	PieChartOutlined,
-	UserOutlined
-} from "@ant-design/icons";
+import { FireOutlined, FileAddOutlined, UserOutlined } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -62,14 +58,14 @@ const Sidebar = ({ user }) => {
 			>
 				<Menu.Item key="/" disabled={!collapsible}>
 					<NavLink to="/" activeClassName="active-link">
-						<PieChartOutlined />
+						<FireOutlined />
 
 						<span>Feed</span>
 					</NavLink>
 				</Menu.Item>
 				<Menu.Item key="/addPost" disabled={!collapsible}>
 					<NavLink to="/addPost" activeClassName="active-link">
-						<DesktopOutlined />
+						<FileAddOutlined />
 						<span>Add Post</span>
 					</NavLink>
 				</Menu.Item>
