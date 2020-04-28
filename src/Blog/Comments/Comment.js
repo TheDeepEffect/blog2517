@@ -9,7 +9,7 @@ const Comment = ({ content, by, last_seen }) => {
 		setStatus(new Date(last_seen) - new Date() < -35000 ? false : true);
 	};
 	return (
-		<div style={{ borderBottom: "0.005vh solid white", padding: 5 }}>
+		<div className="comment">
 			{content}{" "}
 			<span
 				onMouseOver={checkStatus}

@@ -72,18 +72,7 @@ const Posts = ({ latestPost }) => {
 		});
 	};
 	return (
-		<div>
-			<Header
-				className="site-layout-background"
-				style={{
-					backgroundColor: "#313131",
-					textAlign: "end",
-					fontSize: 30,
-					color: "white"
-				}}
-			>
-				Feed
-			</Header>
+		<Content>
 			{state.numberOfNewPosts > 0 && (
 				<div style={{ textAlign: "center" }}>
 					<span
@@ -103,7 +92,7 @@ const Posts = ({ latestPost }) => {
 				>{`Load older posts `}</span>
 			</div>
 			{/* )} */}
-		</div>
+		</Content>
 	);
 };
 
@@ -111,7 +100,7 @@ const PostsSubscription = () => {
 	const { loading, error, data } = useSubscription(NEW_POST_SUB);
 	if (loading) {
 		return (
-			<div>
+			<Layout className="site-layout">
 				<Header
 					className="site-layout-background"
 					style={{
@@ -123,16 +112,16 @@ const PostsSubscription = () => {
 				>
 					Feed
 				</Header>
-				<Layout className="site-layout">
+				<Content>
 					<div className="loader">Loading Feed...</div>
-				</Layout>
-			</div>
+				</Content>
+			</Layout>
 		);
 	}
 	if (error) {
 		// console.log(error);
 		return (
-			<div>
+			<Layout className="site-layout">
 				<Header
 					className="site-layout-background"
 					style={{
@@ -144,13 +133,30 @@ const PostsSubscription = () => {
 				>
 					Feed
 				</Header>
-				<Layout className="site-layout">
+
+				<Content>
 					<div className="loader">Something went left in loading feed</div>
-				</Layout>
-			</div>
+				</Content>
+			</Layout>
 		);
 	}
 	// console.log(data);
-	return <Posts latestPost={data.posts.length ? data.posts[0] : null} />;
+	return (
+		<Layout className="site-layout">
+			<Header
+				className="site-layout-background"
+				style={{
+					backgroundColor: "#313131",
+					textAlign: "end",
+					fontSize: 30,
+					color: "white"
+				}}
+			>
+				Feed
+			</Header>
+
+			<Posts latestPost={data.posts.length ? data.posts[0] : null} />
+		</Layout>
+	);
 };
 export default PostsSubscription;

@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Button } from "antd";
-import { Layout, Divider } from "antd";
+import { Card, Divider } from "antd";
 import { useHistory } from "react-router-dom";
 import Comments from "../Comments/Comments";
+import { useMutation } from "@apollo/react-hooks";
+import { ADD_COMMENT } from "./../../queries/Mutations";
+
 const { Paragraph, Title } = Typography;
-const { Content } = Layout;
 
 const Post = ({ post, isMine }) => {
 	const history = useHistory();
+	const [comment, setComment] = useState("");
+	const [addComment, { loading }] = useMutation(ADD_COMMENT, {
+		onError: error => console.log(error),
+		onCompleted: () => setComment("")
+	});
+
 	const {
 		id,
 		title,
@@ -19,18 +27,14 @@ const Post = ({ post, isMine }) => {
 	} = post || "";
 
 	// console.log(id, published);
+	const submitCommentHandler = e => {
+		// console.log(pid);
+		e.preventDefault();
+		addComment({ variables: { pid: id, content: comment } });
+	};
 	return (
-		<Content style={{ padding: 50 }}>
-			<div
-				className="site-layout-background-posts"
-				style={{
-					padding: 50,
-					minHeight: "50vh",
-					minWidth: "50vw",
-					backgroundColor: "#ec625f",
-					color: "white"
-				}}
-			>
+		<div>
+			<Card className="site-layout-background-posts" bordered={false}>
 				<Title style={{ color: "#313131" }}>{title}</Title>
 				<Divider className="post-divider" orientation="right">
 					at{" "}
@@ -41,7 +45,7 @@ const Post = ({ post, isMine }) => {
 				</Divider>
 				<Paragraph
 					ellipsis={{ rows: 10, expandable: true }}
-					style={{ color: "white", fontSize: 20 }}
+					style={{ color: "white", fontSize: "x-large" }}
 				>
 					{content}
 				</Paragraph>
@@ -52,9 +56,24 @@ const Post = ({ post, isMine }) => {
 						Update Post
 					</Button>
 				)}
-			</div>
-			<Comments pid={id} />
-		</Content>
+			</Card>
+			<Card bordered={false} className="site-layout-background-comments">
+				{!isMine && (
+					<form onSubmit={submitCommentHandler}>
+						<input
+							type="text"
+							className="comment-input"
+							placeholder="Enter comment..."
+							value={comment}
+							onChange={e => setComment(e.target.value)}
+							disabled={loading}
+							required
+						/>
+					</form>
+				)}
+				<Comments pid={id} />
+			</Card>
+		</div>
 	);
 };
 export default Post;

@@ -29,20 +29,18 @@ const Sidebar = ({ user }) => {
 		if (user) setCollapsible(true);
 	}, [user]);
 	useEffect(() => {
-		if (isOnline) {
+		if (isOnline && user) {
 			updateLastSeen();
 			setOnlineIndicator(setInterval(() => updateLastSeen(), 30000));
 		} else {
 			clearInterval(onlineIndicator);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isOnline]);
+	}, [isOnline, user]);
 	const updateLastSeen = () => {
-		if (user) {
-			updateLastSeenMutation({
-				variables: { now: new Date().toISOString() }
-			});
-		}
+		updateLastSeenMutation({
+			variables: { now: new Date().toISOString() }
+		});
 	};
 	return (
 		<Sider

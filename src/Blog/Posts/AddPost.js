@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Layout, Input, Checkbox, Button } from "antd";
+import { Form, Layout, Input, Checkbox, Button, Card } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_POST, UPDATE_POST } from "../../queries/Mutations";
 import { MY_POSTS } from "../../queries/queries";
@@ -34,9 +34,10 @@ const AddPost = ({ user, isEdit, post }) => {
 	const [errors, setErrors] = useState([]);
 	const [done, setDone] = useState(false);
 
-	let mutation = {
+	let add_mutation = {
 		MUTATION: ADD_POST,
 		onCompleted: () => {
+			console.log("add completed");
 			setState(prevState => {
 				return {
 					title: "",
@@ -50,73 +51,94 @@ const AddPost = ({ user, isEdit, post }) => {
 			setErrors([]);
 		},
 		onError: error => {
-			// console.log(error);
-			setErrors([...error]);
-		},
-		variables: {
-			...state,
-			url: `${username}-${state.url}`,
-			published_at: new Date().toISOString()
+			console.log(error);
+			setErrors([error]);
 		}
 	};
 
 	let update_mutation = {
 		MUTATION: UPDATE_POST,
-		onComplete: () => {
-			// console.log("done!!");
-			history.push("/myPost");
+		onCompleted: () => {
+			console.log("done!!");
+			history.push("/myPosts");
 		},
 		onError: error => {
-			// console.log(error);
-			setErrors([...error]);
-		},
-		variables: {
-			...state,
-			id,
-			url: `${username}-${state.url}`,
-			published_at: new Date().toISOString()
+			console.log(error, "update error");
+			setErrors([error]);
 		}
 	};
+	const [mutation, setMutation] = useState(add_mutation);
 
 	useEffect(() => {
 		if (!isEdit) {
-			// console.log("createEffect");
-			setState(prevState => {
-				return {
-					title: "",
-					content: "",
-					url: "",
-					published: false,
-					published_at: null
-				};
+			setState({
+				title: "",
+				content: "",
+				url: "",
+				published: false,
+				published_at: null
 			});
 			setDone(false);
 			setErrors([]);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isEdit]);
 	useEffect(() => {
 		if (post && isEdit) {
-			mutation = update_mutation;
-			setId(post.id);
-			const { id, user, ...postData } = post;
-			console.log(postData);
+			setMutation(update_mutation);
+			const { user, ...postData } = post;
+			// console.log(postData);
 			setState({ ...postData });
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [post, isEdit]);
-
-	const [mutatePost, { loading }] = useMutation(mutation.MUTATION, {
+	console.log(mutation);
+	// useEffect(() => {
+	// 	if (post && isEdit) {
+	// 		mutation = update_mutation;
+	// 		setId(post.id);
+	// 		const { id, user, ...postData } = post;
+	// 		console.log(postData);
+	// 		setState({ ...postData });
+	// 	}
+	// 	console.log(mutation);
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [isEdit, post]);
+	const [mutatePost, { loading, error }] = useMutation(mutation.MUTATION, {
 		onError: mutation.onError,
 		onCompleted: mutation.onCompleted,
 		refetchQueries: [{ query: MY_POSTS, variables: { uid } }]
 	});
-
+	if (error) console.log(error, "mutation error");
 	const onFinish = values => {
-		if (state.published) {
-			mutatePost({
-				variables: mutation.variables
-			});
-		} else {
-			mutatePost({ variables: { ...state, url: `${username}-${state.url}` } });
+		console.log(mutation);
+		console.log(isEdit);
+		console.log(state);
+		const { id, content, title, published, url } = state;
+		switch (isEdit) {
+			case true:
+				mutatePost({
+					variables: {
+						id,
+						title,
+						content,
+						published,
+						published_at: published ? new Date().toISOString() : null,
+						url
+					}
+				});
+				break;
+			default:
+				mutatePost({
+					variables: {
+						title,
+						content,
+						published,
+						published_at: published ? new Date().toISOString() : null,
+						url: `${username}-${url}`
+					}
+				});
+				break;
 		}
 	};
 	// console.log(state);
@@ -156,7 +178,7 @@ const AddPost = ({ user, isEdit, post }) => {
 		return <div style={{ color: "white" }}>Select your post to edit 😊</div>;
 	}
 	return (
-		<div>
+		<Layout className="site-layout">
 			<Header
 				className="site-layout-background"
 				style={{
@@ -168,17 +190,8 @@ const AddPost = ({ user, isEdit, post }) => {
 			>
 				Add new post
 			</Header>
-			<Content style={{ padding: 30 }}>
-				<div
-					className="site-layout-background-posts"
-					style={{
-						padding: 100,
-						minHeight: "80vh",
-						minWidth: "50vw",
-						backgroundColor: "#ec625f",
-						color: "white"
-					}}
-				>
+			<Content>
+				<Card className="site-layout-background-posts" bordered={false}>
 					<Form
 						style={{
 							position: "relative",
@@ -236,11 +249,11 @@ const AddPost = ({ user, isEdit, post }) => {
 									: "Add"}
 							</Button>
 						</Form.Item>
-						{done && <h3>Added!!</h3>}
 					</Form>
-				</div>
+					{done && <h3>Added!!</h3>}
+				</Card>
 			</Content>
-		</div>
+		</Layout>
 	);
 };
 

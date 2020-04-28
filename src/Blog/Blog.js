@@ -45,41 +45,39 @@ const Blog = () => {
 	return (
 		<Layout style={{ minHeight: "100vh" }}>
 			<Sidebar user={data.users_by_pk} />
-			<Layout className="site-layout">
-				<Switch>
-					<Route
-						exact
-						path="/"
-						render={() => {
-							return data.users_by_pk ? (
-								<Posts />
-							) : (
-								<Adduser uid={uid} name={displayName} />
-							);
-						}}
-					/>
-					<Route
-						exact
-						path="/addPost"
-						render={() => <AddPost user={data.users_by_pk} />}
-					/>
-					<Route
-						exact
-						path="/editPost"
-						render={() => <AddPost isEdit={true} user={data.users_by_pk} />}
-					/>
-					<Route
-						exact
-						path="/myPosts"
-						render={() => <MyPosts uid={data.users_by_pk.id} />}
-					/>
-					<Route render={() => <PageNotFound />} />
-				</Switch>
+			<Switch>
+				<Route
+					exact
+					path="/"
+					render={() => {
+						return data.users_by_pk ? (
+							<Posts />
+						) : (
+							<Adduser uid={uid} name={displayName} />
+						);
+					}}
+				/>
+				<Route
+					exact
+					path="/addPost"
+					render={() => <AddPost user={data.users_by_pk} />}
+				/>
+				<Route
+					exact
+					path="/editPost"
+					render={() => <AddPost isEdit={true} user={data.users_by_pk} />}
+				/>
+				<Route
+					exact
+					path="/myPosts"
+					render={() => <MyPosts uid={data.users_by_pk.id} />}
+				/>
+				<Route render={() => <PageNotFound />} />
+			</Switch>
 
-				{/* <Footer style={{ textAlign: "center" }}>
+			{/* <Footer style={{ textAlign: "center" }}>
 					Ant Design ©2018 Created by Ant UED
 				</Footer> */}
-			</Layout>
 		</Layout>
 	);
 };
