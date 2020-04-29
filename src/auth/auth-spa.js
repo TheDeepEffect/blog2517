@@ -34,7 +34,7 @@ export const FirebaseAuthProvider = ({ cildren }) => {
 					const metadataRef = database().ref(
 						"metadata/" + user.uid + "/refreshTime"
 					);
-					console.log(metadataRef);
+					// console.log(metadataRef);
 
 					metadataRef.on("value", async data => {
 						if (!data.exists) return;
