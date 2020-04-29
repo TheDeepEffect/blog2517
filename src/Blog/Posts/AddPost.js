@@ -92,7 +92,7 @@ const AddPost = ({ user, isEdit, post }) => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [post, isEdit]);
-	console.log(mutation);
+	// console.log(mutation);
 	// useEffect(() => {
 	// 	if (post && isEdit) {
 	// 		mutation = update_mutation;
@@ -109,11 +109,11 @@ const AddPost = ({ user, isEdit, post }) => {
 		onCompleted: mutation.onCompleted,
 		refetchQueries: [{ query: MY_POSTS, variables: { uid } }]
 	});
-	if (error) console.log(error, "mutation error");
+	if (error) console.log(error);
 	const onFinish = values => {
-		console.log(mutation);
-		console.log(isEdit);
-		console.log(state);
+		// console.log(mutation);
+		// console.log(isEdit);
+		// console.log(state);
 		const { id, content, title, published, url } = state;
 		switch (isEdit) {
 			case true:
@@ -171,23 +171,15 @@ const AddPost = ({ user, isEdit, post }) => {
 	// console.log(state);
 	if (!user) {
 		return (
-			<div style={{ color: "white" }}>"Sorry you can't access this page"</div>
+			<div style={{ color: "#131313" }}>"Sorry you can't access this page"</div>
 		);
 	}
 	if (isEdit && !post) {
-		return <div style={{ color: "white" }}>Select your post to edit 😊</div>;
+		return <div style={{ color: "#131313" }}>Select your post to edit 😊</div>;
 	}
 	return (
 		<Layout className="site-layout">
-			<Header
-				className="site-layout-background"
-				style={{
-					backgroundColor: "#313131",
-					textAlign: "end",
-					fontSize: 30,
-					color: "white"
-				}}
-			>
+			<Header className="site-layout-background header-class">
 				Add new post
 			</Header>
 			<Content>
@@ -233,7 +225,7 @@ const AddPost = ({ user, isEdit, post }) => {
 								name="published"
 								checked={state.published}
 								onChange={onChnageHandler}
-								style={{ color: "white" }}
+								style={{ color: "#131313" }}
 							>
 								Published
 							</Checkbox>

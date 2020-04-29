@@ -74,7 +74,7 @@ const Posts = ({ latestPost }) => {
 	return (
 		<Content>
 			{state.numberOfNewPosts > 0 && (
-				<div style={{ textAlign: "center" }}>
+				<div className="load-post-container">
 					<span
 						onClick={() => loadNew()}
 						className="load-posts"
@@ -85,7 +85,7 @@ const Posts = ({ latestPost }) => {
 				<Post key={post.id} post={post} />
 			))}
 			{/* {state.olderAvailable && ( */}
-			<div style={{ textAlign: "center" }}>
+			<div className="load-post-container">
 				<span
 					className="load-posts-older"
 					onClick={() => loadOlder()}
@@ -101,17 +101,7 @@ const PostsSubscription = () => {
 	if (loading) {
 		return (
 			<Layout className="site-layout">
-				<Header
-					className="site-layout-background"
-					style={{
-						backgroundColor: "#313131",
-						textAlign: "end",
-						fontSize: 30,
-						color: "white"
-					}}
-				>
-					Feed
-				</Header>
+				<Header className="site-layout-background header-class">Feed</Header>
 				<Content>
 					<div className="loader">Loading Feed...</div>
 				</Content>
@@ -122,17 +112,7 @@ const PostsSubscription = () => {
 		// console.log(error);
 		return (
 			<Layout className="site-layout">
-				<Header
-					className="site-layout-background"
-					style={{
-						backgroundColor: "#313131",
-						textAlign: "end",
-						fontSize: 30,
-						color: "white"
-					}}
-				>
-					Feed
-				</Header>
+				<Header className="site-layout-background header-class">Feed</Header>
 
 				<Content>
 					<div className="loader">Something went left in loading feed</div>
@@ -143,17 +123,7 @@ const PostsSubscription = () => {
 	// console.log(data);
 	return (
 		<Layout className="site-layout">
-			<Header
-				className="site-layout-background"
-				style={{
-					backgroundColor: "#313131",
-					textAlign: "end",
-					fontSize: 30,
-					color: "white"
-				}}
-			>
-				Feed
-			</Header>
+			<Header className="site-layout-background header-class">Feed</Header>
 
 			<Posts latestPost={data.posts.length ? data.posts[0] : null} />
 		</Layout>

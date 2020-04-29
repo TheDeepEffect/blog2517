@@ -24,7 +24,7 @@ const Comments = ({ latestComments }) => {
 		}
 	}, [latestComments]);
 	return (
-		<div style={{ marginTop: 5, border: " 0.25vh solid white" }}>
+		<div style={{ marginTop: 5 }}>
 			{comments.map(comment => (
 				<Comment
 					key={comment.id}
@@ -42,11 +42,11 @@ const CommetnsSubscription = ({ pid }) => {
 		variables: { pid }
 	});
 	if (loading) {
-		return <div style={{ color: "white" }}>Hype... hype....</div>;
+		return <div style={{ color: "#131313" }}>Hype... hype....</div>;
 	}
 	if (error) {
 		console.log(error);
-		return <div style={{ color: "white" }}>Error in comments!</div>;
+		return <div style={{ color: "#131313" }}>Error in comments!</div>;
 	}
 	return (
 		<Comments latestComments={data.comments.length ? data.comments : null} />

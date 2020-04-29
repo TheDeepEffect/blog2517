@@ -45,7 +45,7 @@ const Post = ({ post, isMine }) => {
 				</Divider>
 				<Paragraph
 					ellipsis={{ rows: 10, expandable: true }}
-					style={{ color: "white", fontSize: "x-large" }}
+					style={{ color: "#131313", fontSize: "large" }}
 				>
 					{content}
 				</Paragraph>

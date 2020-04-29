@@ -5,16 +5,16 @@
 	background-color: violet;
 }
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
-	background-color: #ec625f;
+	background-color: #dbc9b8;
 }
 .ant-menu-dark .ant-menu-item-selected .anticon + span {
-	color: white;
+	color: #131313;
 }
 .ant-menu-dark .ant-menu-item-selected .anticon {
-	color: white;
+	color: #131313;
 }
 .ant-layout-sider-trigger {
-	color: #ec625f;
+	color: #dbc9b8;
 }
 .ant-layout {
 	background-color: #414141;
@@ -30,19 +30,19 @@
 	display: flex;
 	align-items: center;
 	text-align: center;
-	color: white;
+	color: #131313;
 }
 .login-inside-div {
-	background-color: #ec625f;
-	color: white;
+	background-color: #dbc9b8;
+	color: #131313;
 	min-width: 50vw;
 }
 .login-inside-div,
 h1 {
-	color: white;
+	color: #131313;
 }
 .active-link {
-	color: white;
+	color: #131313;
 }
 
 .ant-typography a {
@@ -50,10 +50,10 @@ h1 {
 }
 .loader {
 	text-align: center;
-	color: white;
+	color: #dbc9b8;
 }
 .ant-form-item-label > label {
-	color: white;
+	color: #131313;
 }
 .post-divider.ant-divider-horizontal.ant-divider-with-text-center::before,
 .post-divider.ant-divider-horizontal.ant-divider-with-text-left::before,
@@ -78,49 +78,53 @@ ant-divider-inner-text {
 .offline:hover {
 	background-color: red;
 }
+.load-post-container {
+	text-align: center;
+	padding: 0.5%;
+}
 .load-posts {
 	background-color: #002140;
-	border-radius: 1.5vw 0;
+	border-radius: 1.5vw;
 	padding: 1vh;
 	font-size: 2.5vh;
 	position: fixed;
-	color: #ec625f;
+	color: #dbc9b8;
 	cursor: pointer;
 }
 .load-posts-older {
-	background-color: #002140;
-	color: #ec625f;
-	border-radius: 1.5vw 0;
+	background-color: #131313;
+	color: #dbc9b8;
+	border-radius: 5px;
 	font-size: 3vh;
-	bottom: 5vh;
 	cursor: pointer;
+	padding: 0.25%;
 }
 .user-status-switch {
 	/* color: black; */
 }
 .site-layout-background-posts {
-	padding: 2.5vh;
+	padding: 2.5%;
 	min-height: 50vh;
-	background-color: #ec625f;
-	/* background-color: #ec625f; */
-	color: white;
-	margin: 5vh;
+	background-color: #dbc9b8;
+	/* background-color: #dbc9b8; */
+	color: #131313;
+	margin: 5%;
 	word-break: break-word;
-	z-index: 2;
+	z-index: 1;
 }
 .site-layout-background-comments {
 	/* padding: 0,
 	minWidth: "50vw",
 	backgroundColor: "#525252",
-	color: "white",
+	color: "#131313",
 	fontSize: 20 */
 	padding: 0;
 	min-width: 50vw;
 	background-color: #525252;
 	color: #ffffff;
 	font-size: large;
-	margin-top: -7vh;
-	z-index: 1;
+	margin-top: -6%;
+	z-index: 0;
 }
 .comment-input {
 	background: rgba(0, 0, 0, 0.25);
@@ -130,8 +134,15 @@ ant-divider-inner-text {
 	padding: 1.5vh;
 }
 .comment {
-	border-bottom: 0.003vh solid white;
+	border-bottom: 0.003vh solid #131313;
 	padding: 1.5vh;
 	word-break: break-word;
 	contain: content;
+}
+
+.header-class {
+	background-color: #313131;
+	text-align: end;
+	color: #dbc9b8;
+	font-size: xx-large;
 }

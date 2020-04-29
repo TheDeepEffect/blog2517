@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Card, Form, Input, Cascader, Button } from "antd";
+import { Layout, Card, Form, Input, Button } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
 import { ADD_USER } from "./../queries/Mutations";
@@ -41,15 +41,7 @@ const Adduser = ({ uid, name }) => {
 
 	return (
 		<Layout className="site-layout">
-			<Header
-				className="site-layout-background"
-				style={{
-					backgroundColor: "#313131",
-					textAlign: "end",
-					fontSize: 30,
-					color: "white"
-				}}
-			>
+			<Header className="site-layout-background header-class">
 				Add username
 			</Header>
 			<Content>

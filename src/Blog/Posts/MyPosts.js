@@ -8,9 +8,11 @@ const { Content, Header } = Layout;
 const MyPosts = ({ posts }) => {
 	return (
 		<Content>
-			{posts.map(post => (
-				<Post key={post.id} isMine={true} post={post} />
-			))}
+			{posts.length ? (
+				posts.map(post => <Post key={post.id} isMine={true} post={post} />)
+			) : (
+				<div className="loader">Add new post :-)</div>
+			)}
 		</Content>
 	);
 };
@@ -23,15 +25,7 @@ const MyPostsQuery = ({ uid }) => {
 	if (loading) {
 		return (
 			<Layout className="site-layout">
-				<Header
-					className="site-layout-background"
-					style={{
-						backgroundColor: "#313131",
-						textAlign: "end",
-						fontSize: 30,
-						color: "white"
-					}}
-				>
+				<Header className="site-layout-background header-class">
 					My Posts
 				</Header>
 				<Content>
@@ -41,18 +35,10 @@ const MyPostsQuery = ({ uid }) => {
 		);
 	}
 	if (error) {
-		// console.log(error);
+		console.log(error);
 		return (
 			<Layout className="site-layout">
-				<Header
-					className="site-layout-background"
-					style={{
-						backgroundColor: "#313131",
-						textAlign: "end",
-						fontSize: 30,
-						color: "white"
-					}}
-				>
+				<Header className="site-layout-background header-class">
 					My Posts
 				</Header>
 				<Content>
@@ -66,17 +52,7 @@ const MyPostsQuery = ({ uid }) => {
 	// console.log(data);
 	return (
 		<Layout className="site-layout">
-			<Header
-				className="site-layout-background"
-				style={{
-					backgroundColor: "#313131",
-					textAlign: "end",
-					fontSize: 30,
-					color: "white"
-				}}
-			>
-				My Posts
-			</Header>
+			<Header className="site-layout-background header-class">My Posts</Header>
 			<MyPosts posts={data.posts} />
 		</Layout>
 	);
