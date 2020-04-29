@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { firebaseAuth, ref } from "./config/firebase-config";
+import { firebaseAuth, database } from "./config/firebase-config";
 import Login from "./Login";
 import App from "./../App";
 
@@ -15,7 +15,7 @@ export const FirebaseAuthProvider = ({ cildren }) => {
 	useEffect(() => {
 		return firebaseAuth().onAuthStateChanged(async user => {
 			if (user) {
-				const token = await user.getIdToken();
+				const token = await user.getIdToken(true);
 				// console.log("user here");
 				const idTokenResult = await user.getIdTokenResult();
 				const hasuraClaim =
@@ -31,7 +31,10 @@ export const FirebaseAuthProvider = ({ cildren }) => {
 					setIsAuthenticated(true);
 				} else {
 					// Check if refresh is required.
-					const metadataRef = ref("metadata/" + user.uid + "/refreshTime");
+					const metadataRef = database().ref(
+						"metadata/" + user.uid + "/refreshTime"
+					);
+					console.log(metadataRef);
 
 					metadataRef.on("value", async data => {
 						if (!data.exists) return;
@@ -49,12 +52,20 @@ export const FirebaseAuthProvider = ({ cildren }) => {
 		});
 	}, []);
 
-	const provide = new firebaseAuth.GoogleAuthProvider();
-	const googleSignIn = async () => {
-		// console.log("insignin");
-		await firebaseAuth().signInWithPopup(provide);
-		setIsLoading(false);
-		setIsAuthenticated(true);
+	const uiConfig = {
+		signInFlow: "popup",
+		signInOptions: [
+			firebaseAuth.GoogleAuthProvider.PROVIDER_ID,
+			firebaseAuth.EmailAuthProvider.PROVIDER_ID,
+			firebaseAuth.GithubAuthProvider.PROVIDER_ID
+		],
+		callbacks: {
+			// Avoid redirects after sign-in.
+			signInSuccessWithAuthResult: () => {
+				setIsLoading(false);
+				setIsAuthenticated(true);
+			}
+		}
 	};
 
 	const signOutHandle = async () => {
@@ -68,7 +79,9 @@ export const FirebaseAuthProvider = ({ cildren }) => {
 	}
 	if (!isAuthenticated) {
 		return (
-			<FirebaseAuthContext.Provider value={{ isLoading, googleSignIn }}>
+			<FirebaseAuthContext.Provider
+				value={{ isLoading, uiConfig, firebaseAuth }}
+			>
 				<div className="app">
 					<Login />
 				</div>
