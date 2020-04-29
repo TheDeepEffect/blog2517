@@ -225,7 +225,7 @@ const AddPost = ({ user, isEdit, post }) => {
 								name="published"
 								checked={state.published}
 								onChange={onChnageHandler}
-								style={{ color: "#131313" }}
+								style={{ color: "white" }}
 							>
 								Published
 							</Checkbox>

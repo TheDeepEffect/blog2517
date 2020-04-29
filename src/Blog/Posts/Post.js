@@ -35,22 +35,23 @@ const Post = ({ post, isMine }) => {
 	return (
 		<div>
 			<Card className="site-layout-background-posts" bordered={false}>
-				<Title style={{ color: "#313131" }}>{title}</Title>
+				<Title style={{ color: "white" }}>{title}</Title>
 				<Divider className="post-divider" orientation="right">
-					at{" "}
 					{published
-						? new Date(published_at).toLocaleString()
+						? `at ${new Date(published_at).toLocaleString()} by ${
+								isMine ? "you" : username
+						  }`
 						: "Not published yet"}{" "}
-					by {isMine ? "you" : username}
 				</Divider>
 				<Paragraph
 					ellipsis={{ rows: 10, expandable: true }}
-					style={{ color: "#131313", fontSize: "large" }}
+					style={{ color: "white", fontSize: "large" }}
 				>
 					{content}
 				</Paragraph>
 				{isMine && (
 					<Button
+						type="primary"
 						onClick={() => history.push({ pathname: "/editPost", state: post })}
 					>
 						Update Post

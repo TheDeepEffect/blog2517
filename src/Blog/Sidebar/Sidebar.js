@@ -49,7 +49,6 @@ const Sidebar = ({ user }) => {
 			onCollapse={() => setCollapsed(!collapsed)}
 			style={{ backgroundColor: "#313131" }}
 		>
-			<div className="logo" />
 			<Menu
 				theme="dark"
 				defaultSelectedKeys={[`${pathname}`]}
@@ -97,6 +96,7 @@ const Sidebar = ({ user }) => {
 					</Menu.Item>
 				</SubMenu>
 			</Menu>
+			<div className="logo">BLOG2517</div>
 		</Sider>
 	);
 };
