@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_POSTS } from "../../queries/queries";
-import { Layout } from "antd";
+import { Layout, Skeleton } from "antd";
 import Post from "./Post";
 const { Content, Header } = Layout;
 
@@ -11,7 +11,7 @@ const MyPosts = ({ posts }) => {
 			{posts.length ? (
 				posts.map(post => <Post key={post.id} isMine={true} post={post} />)
 			) : (
-				<div className="loader">Add new post :-)</div>
+				<div className="loader">Add new post ✌</div>
 			)}
 		</Content>
 	);
@@ -29,7 +29,10 @@ const MyPostsQuery = ({ uid }) => {
 					My Posts
 				</Header>
 				<Content>
-					<div className="loader">Loading your posts...</div>
+					<div className="site-layout-background-posts-loader">
+						<Skeleton active />
+						<Skeleton active />
+					</div>
 				</Content>
 			</Layout>
 		);

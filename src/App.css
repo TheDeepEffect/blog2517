@@ -8,10 +8,10 @@
 	background-color: #ff0450;
 }
 .ant-menu-dark .ant-menu-item-selected .anticon + span {
-	color: #191919;
+	color: white;
 }
 .ant-menu-dark .ant-menu-item-selected .anticon {
-	color: #191919;
+	color: white;
 }
 .ant-layout-sider-trigger {
 	color: #ff0450;
@@ -121,15 +121,43 @@ ant-divider-inner-text {
 .user-status-switch {
 	/* color: black; */
 }
+.site-layout {
+	overflow: hidden;
+}
 .site-layout-background-posts {
 	padding: 2.5%;
 	min-height: 50vh;
 	background-color: rgb(25, 25, 25);
 	/* background-color: #dbc9b8; */
-	color: #131313;
 	margin: 5%;
 	word-break: break-word;
 	z-index: 1;
+}
+.site-layout-background-posts-loader {
+	padding: 2.5%;
+	color: transparent !important;
+
+	min-height: 50vh;
+	background-color: rgb(25, 25, 25);
+	margin: 5%;
+}
+.ant-skeleton.ant-skeleton-active .ant-skeleton-content .ant-skeleton-title,
+.ant-skeleton.ant-skeleton-active
+	.ant-skeleton-content
+	.ant-skeleton-paragraph
+	> li {
+	background: -webkit-gradient(
+		linear,
+		left top,
+		right top,
+		color-stop(25%, #f2f2f2),
+		color-stop(37%, #e6e6e6),
+		color-stop(63%, #f2f2f2)
+	);
+	background: linear-gradient(90deg, #ffffff70 25%, #313131 37%, #313131 63%);
+	background-size: 400% 100%;
+	-webkit-animation: ant-skeleton-loading 1.4s ease infinite;
+	animation: ant-skeleton-loading 1.4s ease infinite;
 }
 .site-layout-background-comments {
 	/* padding: 0,
@@ -166,7 +194,10 @@ ant-divider-inner-text {
 	font-size: xx-large;
 }
 .logo {
+	margin: 10% 0 0 0;
+	text-align: center;
 	color: white;
+	background-color: #ff0450;
 }
 .ant-form-item-control-input-content input {
 	background-color: transparent;

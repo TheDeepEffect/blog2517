@@ -24,9 +24,13 @@ const Sidebar = ({ user }) => {
 	const [isOnline, setIsOnline] = useState(true);
 	const [updateLastSeenMutation] = useMutation(UPDATE_LASTSEEN_MUTATION);
 	const [onlineIndicator, setOnlineIndicator] = useState(0);
+	const [trigger, setTrigger] = useState(false);
 
 	useEffect(() => {
-		if (user) setCollapsible(true);
+		if (user) {
+			setCollapsible(true);
+			setCollapsed(true);
+		}
 	}, [user]);
 	useEffect(() => {
 		if (isOnline && user) {
@@ -42,12 +46,18 @@ const Sidebar = ({ user }) => {
 			variables: { now: new Date().toISOString() }
 		});
 	};
+	console.log(collapsed);
 	return (
 		<Sider
 			collapsible={collapsible}
 			collapsed={collapsed}
 			onCollapse={() => setCollapsed(!collapsed)}
 			style={{ backgroundColor: "#313131" }}
+			breakpoint="md"
+			onBreakpoint={broken => {
+				broken ? setTrigger(true) : setTrigger(false);
+			}}
+			{...(trigger ? { collapsible: false } : { collapsible })}
 		>
 			<Menu
 				theme="dark"

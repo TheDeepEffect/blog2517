@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { Layout, Button } from "antd";
+import { Layout, Button, Skeleton } from "antd";
 import Post from "./Post";
 import { useApolloClient, useSubscription } from "@apollo/react-hooks";
 import { POSTS } from "./../../queries/queries";
@@ -98,34 +98,24 @@ const Posts = ({ latestPost }) => {
 
 const PostsSubscription = () => {
 	const { loading, error, data } = useSubscription(NEW_POST_SUB);
-	if (loading) {
-		return (
-			<Layout className="site-layout">
-				<Header className="site-layout-background header-class">Feed</Header>
-				<Content>
-					<div className="loader">Loading Feed...</div>
-				</Content>
-			</Layout>
-		);
-	}
-	if (error) {
-		// console.log(error);
-		return (
-			<Layout className="site-layout">
-				<Header className="site-layout-background header-class">Feed</Header>
 
-				<Content>
-					<div className="loader">Something went left in loading feed</div>
-				</Content>
-			</Layout>
-		);
-	}
 	// console.log(data);
 	return (
 		<Layout className="site-layout">
 			<Header className="site-layout-background header-class">Feed</Header>
 
-			<Posts latestPost={data.posts.length ? data.posts[0] : null} />
+			{loading ? (
+				<Content>
+					<div className="site-layout-background-posts-loader">
+						<Skeleton active />
+						<Skeleton active />
+					</div>
+				</Content>
+			) : error ? (
+				<div className="loader">Something went left in loading feed</div>
+			) : (
+				<Posts latestPost={data.posts.length ? data.posts[0] : null} />
+			)}
 		</Layout>
 	);
 };
