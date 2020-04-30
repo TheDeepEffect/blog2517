@@ -103,16 +103,17 @@ h1 {
 }
 .load-post-container {
 	text-align: center;
-	padding: 0.5%;
+	padding: 1%;
 }
 .load-posts {
 	background-color: #ff0450;
 	border-radius: 5px;
-	padding: 1vh;
+	padding: 0.25%;
 	font-size: 2.5vh;
 	position: fixed;
 	color: white;
 	cursor: pointer;
+	z-index: 2;
 }
 .load-posts-older {
 	background-color: #ff0450;
