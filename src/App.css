@@ -212,6 +212,7 @@ h1 {
 	color: white;
 }
 .ant-btn-primary {
+	margin: 5%;
 	color: white;
 	background-color: #ff0450;
 	border-color: #ff0450;
@@ -220,4 +221,10 @@ h1 {
 	color: #ff0450;
 	background-color: white;
 	border-color: #ff0450;
+}
+.ant-back-top-content {
+	background-color: #ff045075;
+}
+.ant-back-top-content :hover {
+	background-color: #131313;
 }

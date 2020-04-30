@@ -25,6 +25,7 @@ export const POSTS = gql`
 			content
 			url
 			user {
+				id
 				username
 			}
 		}
@@ -41,6 +42,7 @@ export const MY_POSTS = gql`
 			content
 			url
 			user {
+				id
 				username
 			}
 		}

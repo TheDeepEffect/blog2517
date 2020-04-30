@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { Layout } from "antd";
+import { Layout, BackTop } from "antd";
 
 import { GET_USER } from "./../queries/queries";
 import { useFirebaseAuth } from "./../auth/auth-spa";
@@ -78,6 +78,7 @@ const Blog = () => {
 			{/* <Footer style={{ textAlign: "center" }}>
 					Ant Design ©2018 Created by Ant UED
 				</Footer> */}
+			<BackTop />
 		</Layout>
 	);
 };

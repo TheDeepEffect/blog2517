@@ -28,7 +28,6 @@ const AddPost = ({ user, isEdit, post }) => {
 		published: false,
 		published_at: null
 	});
-	const [id, setId] = useState(null);
 	const { id: uid, username } = user || "";
 
 	const [errors, setErrors] = useState([]);

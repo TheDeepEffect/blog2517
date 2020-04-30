@@ -81,3 +81,21 @@ export const ADD_USER = gql`
 		}
 	}
 `;
+
+export const DELETE_COMMENTS = gql`
+	mutation deleteComments($pid: Int, $id: Int) {
+		delete_comments(
+			where: { _or: { post_id: { _eq: $pid }, id: { _eq: $id } } }
+		) {
+			affected_rows
+		}
+	}
+`;
+
+export const DELETE_POST = gql`
+	mutation deletePost($id: Int!) {
+		delete_posts(where: { id: { _eq: $id } }) {
+			affected_rows
+		}
+	}
+`;
