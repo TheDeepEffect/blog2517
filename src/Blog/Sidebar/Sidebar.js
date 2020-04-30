@@ -46,7 +46,7 @@ const Sidebar = ({ user }) => {
 			variables: { now: new Date().toISOString() }
 		});
 	};
-	console.log(collapsed);
+	// console.log(collapsed);
 	return (
 		<Sider
 			collapsible={collapsible}

@@ -36,13 +36,15 @@ const Post = ({ post, isMine }) => {
 		<div>
 			<Card className="site-layout-background-posts" bordered={false}>
 				<Title style={{ color: "white" }}>{title}</Title>
-				<Divider className="post-divider" orientation="right">
-					{published
-						? `at ${new Date(published_at).toLocaleString()} by ${
-								isMine ? "you" : username
-						  }`
-						: "Not published yet"}{" "}
-				</Divider>
+				<div className="post-divider">
+					<span>
+						{published
+							? `at ${new Date(published_at).toLocaleString()} by ${
+									isMine ? "you" : username
+							  }`
+							: "Not published yet"}{" "}
+					</span>
+				</div>
 				<Paragraph
 					ellipsis={{ rows: 10, expandable: true }}
 					style={{ color: "white", fontSize: "large" }}

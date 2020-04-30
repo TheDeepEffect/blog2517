@@ -1,8 +1,8 @@
 .customClass {
 	color: red;
 }
-.ant-menu-item-selected {
-	background-color: violet;
+h3 {
+	color: white;
 }
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
 	background-color: #ff0450;
@@ -70,10 +70,14 @@ h1 {
 .post-divider.ant-divider-horizontal.ant-divider-with-text-left::after,
 .post-divider.ant-divider-horizontal.ant-divider-with-text-right::after {
 	border-top: 1px solid white;
-}
-ant-divider-inner-text {
+}*/
+
+.post-divider {
+	text-align: end;
 	color: white;
-} */
+	border-bottom: 2px solid #ff0450;
+}
+
 .ant-divider-horizontal.ant-divider-with-text-center,
 .ant-divider-horizontal.ant-divider-with-text-left,
 .ant-divider-horizontal.ant-divider-with-text-right {
